@@ -1,0 +1,11 @@
+**/Debug
+**/Release
+/build
+/.cache
+/.vs
+/.vscode
+*.user
+
+src/assembly/*.bin
+
+src/external/

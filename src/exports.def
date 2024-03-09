@@ -1,0 +1,7 @@
+LIBRARY "Nameplate"
+VERSION 0.5
+EXPORTS
+    expGetInterfaceVersion
+    expCreatePlugin
+    GetInterfaceVersion
+    CreateInstance
