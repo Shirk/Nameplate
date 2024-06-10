@@ -35,6 +35,7 @@ import findsignature;
 #define DRAWNAME_PATCH1_LOCATION "E8????????25FFFF000089442410DB442410D80D????????D88C24D4060000D95C2438E8????????25FFFF00008BAC24D0060000894424108BFDDB44241083C9FF33C0F2AED80D????????D88C24D4060000F7D14983F924"
 #define DRAWNAME2_PATCH_LOCATION "6683B9B20000000075178B44240C8B4C2408"
 #define DRAWNAME3_PATCH_LOCATION "A0????????84C0745E8B4E7033C0A0????????83F803774FFF2485????????F74178000000FF753F8B168BCEFF92CC0000005F5E81C418010000C38B517881E2000000FF81FA00000001751B8B8120010000C1E80DA801EBCD8B8920010000C1E90DF6C10175C1"
+#define DRAWNAME3_V2_PATCH_LOCATION "A0????????84C0747A8B7E7033C0A0????????83F804776BFF2485????????F74778000000FF755B8B168BCEFF92CC0000005F5E81C418010000C38B4F7881E1000000FF81F90000000175378B9720010000C1EA0DF6C201EBCC8B8720010000C1E80DA801EB1AF74778000000FF7513E8????????85C0740A8B48788B47783BC875A5"
 
 #define DRAWDAMAGE_PATCH_LOCATION "A1????????8B88C80D0000E8????????8B5008A1????????8954240CDB44240CD84C2408D80D????????D95C24208B88C80D0000E8????????8B400C8B0D????????8944240C8BF1DB44240C8BD681E2FFFFFF00D84C240881FA80808000D80D????????D95C2424750E8B879401000081E6000000FF0BF0"
 /* End "fair use for interoperability" section */
@@ -47,12 +48,14 @@ static constexpr auto drawNamePatch0LocationSig = MakeSig<DRAWNAME_PATCH0_LOCATI
 static constexpr auto drawNamePatch1LocationSig = MakeSig<DRAWNAME_PATCH1_LOCATION>();
 static constexpr auto drawName2PatchLocationSig = MakeSig<DRAWNAME2_PATCH_LOCATION>();
 static constexpr auto drawName3PatchLocationSig = MakeSig<DRAWNAME3_PATCH_LOCATION>();
+static constexpr auto drawName3V2PatchLocationSig = MakeSig<DRAWNAME3_V2_PATCH_LOCATION>();
 static constexpr auto drawDamagePatchLocationSig = MakeSig<DRAWDAMAGE_PATCH_LOCATION>();
 
 static constexpr size_t DRAWNAME_PATCH0_SIZE = __builtin_strlen(DRAWNAME_PATCH0_LOCATION) / 2;
 static constexpr size_t DRAWNAME_PATCH1_SIZE = __builtin_strlen(DRAWNAME_PATCH1_LOCATION) / 2;
 static constexpr size_t DRAWNAME2_PATCH_SIZE = __builtin_strlen(DRAWNAME2_PATCH_LOCATION) / 2;
 static constexpr size_t DRAWNAME3_PATCH_SIZE = __builtin_strlen(DRAWNAME3_PATCH_LOCATION) / 2;
+static constexpr size_t DRAWNAME3_V2_PATCH_SIZE = __builtin_strlen(DRAWNAME3_V2_PATCH_LOCATION) / 2;
 static constexpr size_t DRAWDAMAGE_PATCH_SIZE = __builtin_strlen(DRAWDAMAGE_PATCH_LOCATION) / 2;
 
 // Wish I could just #embed these...
@@ -97,6 +100,21 @@ static constexpr uint8_t DrawName3_Patch[DRAWNAME3_PATCH_SIZE] = {
   0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90
 };
 #define DRAWNAME3_PATCH_ADDRESS_LOCATION 3
+
+static constexpr uint8_t DrawName3_V2_Patch[DRAWNAME3_V2_PATCH_SIZE] = {
+  0x89, 0xf1, 0xb8, 0x78, 0x56, 0x34, 0x12, 0xff, 0xd0, 0x84, 0xc0, 0x75,
+  0x76, 0x74, 0x19, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90,
+  0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90,
+  0x90, 0x90, 0x90, 0x90, 0x8b, 0x16, 0x89, 0xf1, 0xff, 0x92, 0xcc, 0x00,
+  0x00, 0x00, 0x5f, 0x5e, 0x81, 0xc4, 0x18, 0x01, 0x00, 0x00, 0xc3, 0x90,
+  0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90,
+  0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90,
+  0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90,
+  0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90,
+  0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90,
+  0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90
+};
+#define DRAWNAME3_V2_PATCH_ADDRESS_LOCATION 3
 
 static constexpr uint8_t DrawDamage_Patch[DRAWDAMAGE_PATCH_SIZE] = {
   0x8d, 0x4c, 0x24, 0x20, 0x8d, 0x54, 0x24, 0x08, 0xb8, 0x78, 0x56, 0x34,
@@ -156,6 +174,9 @@ static struct {
 
 	uintptr_t DrawName3PatchAddr;
 	uint8_t DrawName3PatchOrig[DRAWNAME3_PATCH_SIZE];
+
+	uintptr_t DrawName3V2PatchAddr;
+	uint8_t DrawName3V2PatchOrig[DRAWNAME3_V2_PATCH_SIZE];
 
 	uintptr_t DrawDamagePatchAddr;
 	uint8_t DrawDamagePatchOrig[DRAWDAMAGE_PATCH_SIZE];
@@ -616,12 +637,16 @@ int Nameplate::Init() {
 	}
 
 	// DrawName3 (display mode)
+	// either use the original or the new version, depending on what's found
 	uintptr_t pDrawName3Patch = (uintptr_t) drawName3PatchLocationSig.Find();
-	if (pDrawName3Patch == 0) {
+	uintptr_t pDrawName3V2Patch = (uintptr_t) drawName3V2PatchLocationSig.Find();
+	if (pDrawName3Patch == 0 && pDrawName3V2Patch == 0) {
 		return -14;
 	}
 
-	uintptr_t ppNamesOff = pDrawName3Patch + 1;
+	uintptr_t ppNamesOff = (pDrawName3Patch != 0)
+		? pDrawName3Patch + 1
+		: pDrawName3V2Patch + 1;
 	uintptr_t pNamesOff = lsb32_i((uint8_t*) ppNamesOff, 0);
 	if (pNamesOff == 0) {
 		return -17;
@@ -660,14 +685,27 @@ int Nameplate::Init() {
 	// Stick a JMP there.
 	pLoc[0] = (AsmSettings.HideStars != 0) ? 0xEB : 0x75;
 
-	CopyMemory(&Globals.DrawName3PatchOrig[0], reinterpret_cast<const void*> (pDrawName3Patch), DRAWNAME3_PATCH_SIZE);
-	CopyMemory(reinterpret_cast<void*> (pDrawName3Patch), &DrawName3_Patch, DRAWNAME3_PATCH_SIZE);
+	if (pDrawName3Patch != 0) {
+		CopyMemory(&Globals.DrawName3PatchOrig[0], reinterpret_cast<const void*> (pDrawName3Patch), DRAWNAME3_PATCH_SIZE);
+		CopyMemory(reinterpret_cast<void*> (pDrawName3Patch), &DrawName3_Patch, DRAWNAME3_PATCH_SIZE);
 
-	pLoc = reinterpret_cast<uint8_t*> (pDrawName3Patch + DRAWNAME3_PATCH_ADDRESS_LOCATION);
-	pLoc[0] = (((uintptr_t) ShouldDrawNameplate) >> 0) & 0xFF;
-	pLoc[1] = (((uintptr_t) ShouldDrawNameplate) >> 8) & 0xFF;
-	pLoc[2] = (((uintptr_t) ShouldDrawNameplate) >> 16) & 0xFF;
-	pLoc[3] = (((uintptr_t) ShouldDrawNameplate) >> 24) & 0xFF;
+		pLoc = reinterpret_cast<uint8_t*> (pDrawName3Patch + DRAWNAME3_PATCH_ADDRESS_LOCATION);
+		pLoc[0] = (((uintptr_t) ShouldDrawNameplate) >> 0) & 0xFF;
+		pLoc[1] = (((uintptr_t) ShouldDrawNameplate) >> 8) & 0xFF;
+		pLoc[2] = (((uintptr_t) ShouldDrawNameplate) >> 16) & 0xFF;
+		pLoc[3] = (((uintptr_t) ShouldDrawNameplate) >> 24) & 0xFF;
+	}
+
+	if (pDrawName3V2Patch != 0) {
+		CopyMemory(&Globals.DrawName3V2PatchOrig[0], reinterpret_cast<const void*> (pDrawName3V2Patch), DRAWNAME3_V2_PATCH_SIZE);
+		CopyMemory(reinterpret_cast<void*> (pDrawName3V2Patch), &DrawName3_V2_Patch, DRAWNAME3_V2_PATCH_SIZE);
+
+		pLoc = reinterpret_cast<uint8_t*> (pDrawName3V2Patch + DRAWNAME3_V2_PATCH_ADDRESS_LOCATION);
+		pLoc[0] = (((uintptr_t) ShouldDrawNameplate) >> 0) & 0xFF;
+		pLoc[1] = (((uintptr_t) ShouldDrawNameplate) >> 8) & 0xFF;
+		pLoc[2] = (((uintptr_t) ShouldDrawNameplate) >> 16) & 0xFF;
+		pLoc[3] = (((uintptr_t) ShouldDrawNameplate) >> 24) & 0xFF;
+	}
 
 	CopyMemory(&Globals.DrawDamagePatchOrig[0], reinterpret_cast<const void*> (pDrawDamagePatch), DRAWDAMAGE_PATCH_SIZE);
 	CopyMemory(reinterpret_cast<void*> (pDrawDamagePatch), &DrawDamage_Patch, DRAWDAMAGE_PATCH_SIZE);
@@ -695,6 +733,7 @@ int Nameplate::Init() {
 	Globals.DrawNamePatch1Addr = pDrawNamePatch1;
 	Globals.DrawName2PatchAddr = pDrawName2Patch;
 	Globals.DrawName3PatchAddr = pDrawName3Patch;
+	Globals.DrawName3V2PatchAddr = pDrawName3V2Patch;
 	Globals.DrawDamagePatchAddr = pDrawDamagePatch;
 
 	return 0;
@@ -759,6 +798,10 @@ int Nameplate::Deinit() {
 
 	if (Globals.DrawDamagePatchAddr != 0) {
 		CopyMemory(reinterpret_cast<void*> (Globals.DrawDamagePatchAddr), &Globals.DrawDamagePatchOrig[0], DRAWDAMAGE_PATCH_SIZE);
+	}
+
+	if (Globals.DrawName3V2PatchAddr != 0) {
+		CopyMemory(reinterpret_cast<void*> (Globals.DrawName3V2PatchAddr), &Globals.DrawName3V2PatchOrig[0], DRAWNAME3_V2_PATCH_SIZE);
 	}
 
 	if (Globals.DrawName3PatchAddr != 0) {

@@ -89,7 +89,7 @@ static void WindozerShortHelp(Console* console, [[maybe_unused]] MESSAGE message
 }
 
 static void WindozerLongHelp(Console* console, [[maybe_unused]] MESSAGE message, [[maybe_unused]] int param) {
-    console->Write("\\cs(255,192,255)Nameplate v0.5\\cr");
+    console->Write("\\cs(255,192,255)Nameplate v0.51\\cr");
     console->Write("\\cs(255,192,255)https://www.github.com/Shirk/Nameplate\\cr");
     console->Write("\\cs(255,255,192)Usage:\\cr");
     console->Write("\\cs(255,255,192)//nameplate help - \\cs(255,255,255)You're reading it!\\cr");
