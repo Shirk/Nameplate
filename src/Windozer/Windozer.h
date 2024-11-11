@@ -16,7 +16,7 @@ If not, see <https://www.gnu.org/licenses/>.
 
 #include <inttypes.h>
 
-#define WINDOZER_INTERFACE_VERSION 0x40002
+#define WINDOZER_INTERFACE_VERSION 0x40004
 
 typedef uint8_t undefined;
 
@@ -26,7 +26,26 @@ class PrimitiveHandler;
 class PacketStreamHandler;
 class FFXI;
 
+// unverified
 struct MMFSettingsHandler {
+    char SettingsName[256];
+    char LauncherVersion[16];
+    char HookVersion[16];
+    char GameVersion[16]; // someone didn't clear this or what
+    char PolPath[8192];
+    char WindowerPath[8192];
+    char ConsoleKey[16];
+    uint32_t DontCare;
+    int XRes;
+    int YRes;
+    int UiXRes;
+    int UiYRes;
+
+    // don't care
+    char unused[65536];
+};
+
+struct MMFSettingsHandlerOld {
     char PolPath[16384];
     char WindowerPath[16384];
     uint8_t field2_0x8000[8192];

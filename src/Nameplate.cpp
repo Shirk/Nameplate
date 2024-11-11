@@ -245,12 +245,13 @@ static bool __fastcall ShouldDrawNameplate(const XiModel* pModel) {
 		return false;
 	}
 
-	// client version (not accessable in retail client)
+	// client version (some options not accessable in retail client)
 	// note - (Entity->Flags0 >> 13) & 1 is attackable entity
 	// mode 0 - off
-	// mode 1 - pc only
+	// mode 1 - npc only
 	// mode 2 - mob (incl. attackable pc) and npc
 	// mode 3 - non-attackable entities only
+	// mode 4 - player and npcs
 
 	if (Globals.pPlayerEntityIndex != nullptr) {
 		switch (AsmSettings.NameMode) {
