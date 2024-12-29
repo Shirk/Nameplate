@@ -49,9 +49,11 @@ class WindozerNameplate : public PluginBase, private Nameplate {
 
 		virtual bool GetConfigPath(wchar_t path[UNICODE_MAX_PATH]) override {
 			MMFSettingsHandler settings;
+
+			ZeroMemory(&settings, sizeof(settings));
 			pPluginManager->GetMMFSettingsHandler(&settings);
 
-			StringCchPrintfW(path, UNICODE_MAX_PATH, L"%s\\plugins\\settings", settings.WindowerPath);
+			StringCchPrintfW(path, UNICODE_MAX_PATH, L"%S\\plugins\\settings", settings.WindowerPath);
 			return true;
 		}
 
@@ -93,8 +95,8 @@ static void WindozerLongHelp(Console* console, [[maybe_unused]] MESSAGE message,
     console->Write("\\cs(255,192,255)https://www.github.com/Shirk/Nameplate\\cr");
     console->Write("\\cs(255,255,192)Usage:\\cr");
     console->Write("\\cs(255,255,192)//nameplate help - \\cs(255,255,255)You're reading it!\\cr");
-    console->Write("\\cs(255,255,192)//nameplate load - \\cs(255,255,255)Load configuration from\\cs(255,255,192) config\\nameplate\\defaults.ini\\cr");
-    console->Write("\\cs(255,255,192)//nameplate save - \\cs(255,255,255)Save current configuration to\\cs(255,255,192) config\\nameplate\\defaults.ini\\cr");
+    console->Write("\\cs(255,255,192)//nameplate load - \\cs(255,255,255)Load configuration from\\cs(255,255,192) plugins/settings/nameplate/defaults.ini\\cr");
+    console->Write("\\cs(255,255,192)//nameplate save - \\cs(255,255,255)Save current configuration to\\cs(255,255,192) plugins/settings/nameplate/defaults.ini\\cr");
     console->Write("\\cs(255,255,192)//nameplate fontsize - \\cs(255,225,192) <number>\t\\cs(255,255,255)Set the nameplate font size to <number> pixels\\cr");
     console->Write("\\cs(255,255,192)//nameplate damagefontsize - \\cs(255,225,192) <number>\t\\cs(255,255,255)Set the damage font size to <number> pixels\\cr");
     console->Write("\\cs(255,255,192)//nameplate hidestars - \\cs(255,255,255)Hide all Job Mastery stars\\cr");
