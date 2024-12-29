@@ -1,0 +1,75 @@
+name: Build and Release Nameplate.dll
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version tag for this release"
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # future: specify ashita version as a workflow input, then put api version in the zip filename.
+      - name: Setup Ashita v4 headers
+        uses: actions/checkout@v4
+        with:
+          repository: AshitaXI/Ashita-v4beta
+          path: ashita-sdk-416
+          ref: main
+
+      - name: Setup CMake
+        uses: lukka/get-cmake@latest
+
+      - name: Setup Visual Studio
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Configure CMake with Clang
+        run: |
+          cmake -B build -G Ninja --no-warn-unused-cli `
+            -DCMAKE_C_COMPILER=clang `
+            -DCMAKE_C_COMPILER_FORCED=ON `
+            -DCMAKE_CXX_COMPILER=clang `
+            -DCMAKE_CXX_COMPILER_FORCED=ON `
+            -DCMAKE_BUILD_TYPE=Release `
+            -DASHITA_SDK_PATH=${{ github.workspace }}/ashita-sdk-416/plugins/sdk `
+            -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+      - name: Build DLL
+        run: cmake --build build
+
+      - name: Build Package
+        run: |
+          mkdir -p release/docs/nameplate
+          mkdir -p release/plugins
+
+          cp CHANGELOG.md release/docs/nameplate/
+          cp README.md release/docs/nameplate/
+          cp build/Nameplate.dll release/plugins/
+
+          7z a -tzip -mx9 Nameplate-${{ inputs.version }}.zip ./release/*
+    
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        if: true
+        with:
+          files: |
+            Nameplate-${{ inputs.version }}.zip
+          draft: false
+          prerelease: false
+          tag_name: ${{ inputs.version }}
+          name: Release ${{ inputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Nameplate-${{ inputs.version }}
+          path: Nameplate-${{ inputs.version }}.zip

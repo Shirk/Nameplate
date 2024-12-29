@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.28)
 
 project(Nameplate
     VERSION 0.51
+    LANGUAGES CXX
     DESCRIPTION "Corrects defects in nameplate rendering."
     HOMEPAGE_URL "https://www.github.com/Shirk/Nameplate"
 )
@@ -37,8 +38,6 @@ target_sources(Nameplate PUBLIC
 
     src/exports.def
     "${CMAKE_CURRENT_BINARY_DIR}/versioninfo.rc"
-
-    src/external/d3d8.h
 
     PUBLIC FILE_SET CXX_MODULES FILES
     src/findsignature.cppm
