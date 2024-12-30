@@ -48,11 +48,15 @@ file can be saved and loaded by using the `/nameplate save` and `/nameplate load
 
 ## Installation for Windower 4 users
 
+***Please report any and all issues with this plugin on the [Nameplate Issues](https://github.com/Shirk/Nameplate/issues) tracker. This is the *only* valid location to get any support or assistance for this plugin.***
+
 Copy `plugins\Nameplate.dll` to `<***Windower 4 Folder***>\plugins\Nameplate.dll`
 
 This version of Nameplate is compatible with the current version of Windower 4.
 
 ## Usage for Windower 4 users
+
+***Please report any and all issues with this plugin on the [Nameplate Issues](https://github.com/Shirk/Nameplate/issues) tracker. This is the *only* valid location to get any support or assistance for this plugin.***
 
 `//load Nameplate` to load the plugin.  `//nameplate help` to read the
 in-game command help.
@@ -90,6 +94,7 @@ file can be saved and loaded by using the `//nameplate save` and `//nameplate lo
 ## For more information
 
 - [Nameplate Homepage](https://www.github.com/Shirk/Nameplate)
+- [Issues Tracker](https://github.com/Shirk/Nameplate/issues)
 - [Previous Homepage](https://ffxi.somepage.org/Nameplate/)
 - [Changelog](./CHANGELOG.md)
 
