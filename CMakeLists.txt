@@ -51,6 +51,7 @@ if(MSVC)
     target_compile_options(Nameplate PRIVATE /EHa /W4)
 else()
     target_compile_options(Nameplate PRIVATE
+        -m32
         -fno-rtti -march=nehalem -fomit-frame-pointer -ffast-math -mfpmath=sse -mtune=skylake
         -Wall -Wextra -Wpedantic -W
         -Wno-c++98-compat -Wno-reserved-macro-identifier -Wno-nonportable-system-include-path
@@ -63,4 +64,5 @@ else()
         -Wno-tautological-unsigned-zero-compare -Wno-duplicate-enum -Wno-double-promotion
         -Wno-documentation-unknown-command -Wno-unused-function
         -Wno-c99-extensions -Wno-missing-braces)
+    target_link_options(Nameplate PRIVATE -m32)
 endif()
