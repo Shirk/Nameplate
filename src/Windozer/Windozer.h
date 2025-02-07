@@ -16,7 +16,7 @@ If not, see <https://www.gnu.org/licenses/>.
 
 #include <inttypes.h>
 
-#define WINDOZER_INTERFACE_VERSION 0x40004
+#define WINDOZER_INTERFACE_VERSION 0x40006
 
 typedef uint8_t undefined;
 
@@ -26,9 +26,36 @@ class PrimitiveHandler;
 class PacketStreamHandler;
 class FFXI;
 
-// unverified
 struct MMFSettingsHandler {
-    char SettingsName[256];
+    char ProfileName[256];
+    char Branch[32];
+    char ___pad120[16]; // ???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+    char LauncherVersion[16];
+    char HookVersion[16];
+    char PlayOnlinePath[4096];
+    char FfxiPath[4096];
+    char WindowerPath[4096];
+    char ConsoleKey[16];
+    uint32_t Region;
+    int Width;
+    int Height;
+    int UIWidth;
+    int UIHeight;
+    int XPosition;
+    int YPosition;
+    bool Fullscreen;
+    bool Borderless;
+    bool Debug;
+    bool Loaded;
+    bool AlwaysEnableGamepad;
+    bool AllowWinKey;
+    uint8_t ___pad3182;
+    uint8_t ___pad3183;
+};
+
+// unverified
+struct MMFSettingsHandlerOld2 {
+    char SettingsName[0x100];
     char LauncherVersion[16];
     char HookVersion[16];
     char GameVersion[16]; // someone didn't clear this or what
@@ -92,6 +119,16 @@ struct MMFSettingsHandlerOld {
 
 class Console {
     public:
+        virtual void __stdcall OpenConsole(bool);
+        virtual bool __stdcall IsVisible();
+        virtual void __stdcall SetPosition(float, float);
+        virtual void __stdcall Write(const char *);
+        virtual void __stdcall Clear();
+        virtual void __stdcall SendCommand(const char *, bool);
+};
+
+class ConsoleOld2 {
+    public:
         virtual bool __stdcall _00();
         virtual void __stdcall OpenConsole(bool);
         virtual bool __stdcall IsVisible();
@@ -104,6 +141,20 @@ class Console {
 
 class PluginManager {
     public:
+        virtual MMFSettingsHandler* __stdcall GetMMFSettingsHandler(MMFSettingsHandler *);
+        virtual void * __stdcall GetHWND();
+        virtual void * __stdcall GetDirect3D8Device();
+        virtual Console* __stdcall GetConsole();
+        virtual TextHandler* __stdcall GetTextHandler();
+        virtual PrimitiveHandler* __stdcall GetPrimitiveHandler();
+        virtual PacketStreamHandler* __stdcall GetPacketStreamHandler();
+        virtual void * __stdcall _09_Return_Zero();
+        virtual FFXI * __stdcall GetFFXI();
+        virtual PluginManager* __thiscall Dtor(uint8_t);
+};
+
+class PluginManagerOld2 {
+    public:
         virtual float __stdcall GetVersion();
         virtual MMFSettingsHandler* __stdcall GetMMFSettingsHandler(MMFSettingsHandler *);
         virtual void * __stdcall GetHWND();
@@ -115,7 +166,7 @@ class PluginManager {
         virtual PacketStreamHandler* __stdcall GetPacketStreamHandler();
         virtual void * __stdcall _09_Return_Zero();
         virtual FFXI * __stdcall GetFFXI();
-        virtual PluginManager* __thiscall Dtor(uint8_t);
+        virtual PluginManagerOld2* __thiscall Dtor(uint8_t);
 };
 
 struct PluginMetadata {
