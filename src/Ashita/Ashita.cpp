@@ -243,3 +243,7 @@ DllExport double __stdcall expGetInterfaceVersion(void) {
 DllExport IPlugin* __stdcall expCreatePlugin([[maybe_unused]] const char* args) {
     return new AshitaNameplate();
 }
+
+DllExport void __stdcall expDestroyPlugin(void* instance) {
+    delete static_cast<AshitaNameplate*>(instance);
+}
