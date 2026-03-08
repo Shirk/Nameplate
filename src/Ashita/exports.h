@@ -26,6 +26,8 @@ DllExport double __stdcall expGetInterfaceVersion(void);
 
 DllExport IPlugin* __stdcall expCreatePlugin(const char* args);
 
+DllExport void __stdcall expDestroyPlugin(void* instance);
+
 #ifdef __cplusplus
 };
 #endif

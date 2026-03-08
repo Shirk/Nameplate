@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.52 - 2026-03-08
+
+Add support for Ashita v4.3
+
 ## 0.51 - 2024-06-09
 
 Add support for client version 30240604_1 ("June 10, 2024 (JST) Version Update")
